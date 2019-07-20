@@ -1,0 +1,39 @@
+#!/bin/bash
+NAME=""
+times=0
+while getopts ":n:t:" option; do
+  case "${option}" in 
+    n)
+      NAME=$OPTARG
+      ;;
+    t)
+      times=$OPTARG
+      if ! [[ $times =~ "^[0-9]+$" ]]; then
+        echo "Error: -t should be a positive integer"
+        exit 1
+      fi
+      if $times -eq "0"
+        echo "Error: -t cannot be zero"
+        exit 1
+      ;;
+    :)
+      echo "Requires a value for -${option}"
+      exit 1
+      ;;
+    *)
+      echo "Invalid Argument\nUsage: ${0} [-t times -n name]"
+      exit 1
+      ;;
+  esac
+done
+if $NAME -eq ""; then
+  $NAME="Hi"
+else
+  $NAME="Hi ${NAME}"
+fi
+COUNT=1
+while [ $COUNT -le $TIMES ]; do
+  echo $NAME
+  let COUNT+=1
+done
+exit 0

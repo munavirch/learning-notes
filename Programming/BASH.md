@@ -1,0 +1,2 @@
+*   Bash is a linux shell script interpreter.
+*   Bash scripts starts with a shebang or a bang line, which is `#!/bin/bash`, `#!` identifies the line as a bang line and the rest of the line tells where's the interpreter. In this case, `/bin/bash`.
