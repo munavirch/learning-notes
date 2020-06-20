@@ -1,3 +1,16 @@
+#### I/O
+*   Unix I/O based on 2 simple ideas: a file will be an arbitrary sequence of bytes and anything and everything and produces or accepts data will treated as a file.
+*   Unix has 3 conventional endpoints: **Standard Input**, **Standard Output** and **Standard Error**.
+*   **Input redirection** `<` lets the shell to pass contents of a file as input rather than standard input. e.g. `cat < file.txt` works the same as `cat file.txt`.
+*   **Output redirection** `>` lets the shell to pass output to a file rather than the standard ouput. e.g. `cat file.txt > file.tct` works as `cp file.txt file.tct`.
+*   **Piping** `|` will redirect ouput of a command as an input of another command.
+*   e.g. `cut -d: -f1 < /etc/passwd | sort` will sort the list of accounts and pass it on to `cut` which strips the username. Command is equivalent to `cat /etc/passwd | sort | cut -d: -f1`.
+
+#### Background Jobs
+*   The commands that executed are usually run in foreground. i.e., they are active on the terminal till the command finishes. Append `&` with command to run the job on the background, leaving the terminal free to execute other commands. e.g. `sort list.txt &`.
+*   NOTE: Do not use std I/O for a background job. It may introduce unexpected I/O in the terminal.
+
+
 #### Variables
 
 *   Assignment Syntax: `var=value`, no spaces before or after the assignment operator.
@@ -7,15 +20,29 @@
 
 #### Wildcards
 
-*   Used in listing or specifying files.
+*   Used in listing or specifying files. Applied to existing files and folders only.
+*   Wild cards are not expanded by the command program but by the shell. Shell expands wildcards and pass it to command as argument list.
+*   `*` is the wildcard charecter matches everything.
 *   e.g. `/tmp/` _denotes everything inside_ `_/tmp_` _folder._ `_/tmp/*.csv_` _denotes all files with_ `_csv_` _extension inside_ `_/tmp_` _directory._
-*   `*` is the wildcard charecter.
+*   `?` matches any single charecter.
+*   e.g. `program.?` matches `prgoram.c` and `program.h` but not `program.cpp`
+*   `[]` specifies list of charecters to match in a specific position. Supports ranging like `a-zA-Z0-9`. Negates the lookup if the first charecter is `!`.
+*   e.g. `program.[hc]` matches `program.h` and `program.c` not `program.o`. `program.[!o]` also produce the same result.
+*   e.g. `/opt/[be]?/*` expands to all file inside dir names starting with `/opt/b` or `/opt/e` and dir name has length 2.
+
+#### Brace Expansion
+*   Expands to a list of arbitrary strings of given form.
+*   e.g. `b{a,o,i}c` will be expanded to `bac boc bic`. Nested, `k{a{b,c},d}l` expands to `k{ab,ac,d}l` in turn `kabl kacl kadl`.
+*   e.g. range of values can be specified using `..`. `{a..c}` expands to `{a,b,c}`. 
+*   Can be combined up with wild cards. e.g. `*.{a..c}` will expands to all files with extension `a`, `b` and `c`.
+
 
 #### Escape Charecters
 
-*   Most of the charecters can be escaped using double quotes. e.g. _is a wildcard, but enclosed in double quotes,_ `_*_` _is having literal meaning._
-*   Charecters which are interpreted still inside a double quote are, `"`, `$`, `\` and `` ` ``
+*   Most of the charecters can be escaped using double quotes. e.g. `*` is a wildcard, but enclosed in double quotes, `*` is having literal meaning.
+*   Charecters which are interpreted still inside a double quote are, `"`, `$`, `\`, `` ` `` and `RETURN`
 *   Above charecters can be escaped using a back slash.
+*   **Escaping `RETURN`** - Escaping `RETURN` will enable multi line commands which can be by using a `\` before `RETURN` or `RETURN` inside double quotes.
 
 #### String Interpolation
 

@@ -23,6 +23,25 @@
 #### Special Charecters
 
 *   `:` - empty expression, always true
+*   `~` - home directory, `~username` gives username's home direcotry
+*   `` ` `` - Command archiac, strong quote
+*   `#` - comment
+*   `$` - variable expression
+*   `&` - background job
+*   `*` - string wildcard
+*   `( )` - start, end subshell
+*   `\` - quote next charecter
+*   `|` - pipe
+*   `[ ]` - charecter set wild card
+*   `{ }` - start end command block, brace expression
+*   `;` - shell command saperator
+*   `"` - weak quote
+*   `<` - input redirect
+*   `>` - ouput redirect
+*   `/` - pathname directory saperator
+*   `?` - single charecter wildcard
+*   `!` - pipeline logical not
+
 
 #### Internal Field Seperater
 

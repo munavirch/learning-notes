@@ -1,0 +1,9 @@
+- cd
+- ls
+- cat
+- grep
+- sort
+- cut
+- sed
+- tr
+- nice
