@@ -39,3 +39,23 @@
 *   One package is initialized at a time in the order of their imports in the program such that main package is intiailized at the last.
 *   **Scope** Go implements lexical blocks. A variable is available to as many inner lexical blocks as possible, but not outside the lexical block.
 *   Control statements like `if`, `for` creates a implicit block for the expression part in addition to their body blocks. A variable declared in the expression block of an `if` statement will not be available outside of the body.
+
+## Basic Data Types
+
+*   Go's types falls in to 4 categories: basic, aggregate, reference and interface. Basic type has numbers, string and boolean. Aggregate type has arrays and structs. Reference types includes pointers, map, slices, functions and channels.
+*   **Integers** Go has 4 disctict size of integers, both signed and unsigned, 8, 16, 32 and 64. They are `int8`, `int16`, `int32`, `int64` for signed integers and `uint8`, `uint16`, `uint32`, `uint64` for unsigned. Signed numbers are represented in *2's complinent* form.
+*   There is also a type `int` which may be of size 32 or 64 bits, it's compiler specific. `int` is not the same type as `int32` or `int64`.
+*   `rune`, unicode code point, is an alias to `int32`. `byte` an alias to `uint8`.
+*   `uintptr`, size is unspecified and is enough to hold the address of a pointer.
+*   Go's binary operators (arithematic, logical and comparison) according to decreasing precedence are: [ `*`, `/`, `%`, `<<`, `>>`, `&`, `&^` ], [ `+`, `-`, `|`, `^` ], [ `==`, `!=`, `<`, `<=`, `>`, `>=` ], [ `&&` ], [ `||` ]
+*   Modulus operator is only applicable to integers and has the sign of divident.
+*   Higher order bits are discarded in case of an *overflow*.
+*   For comparison, both left hand side and right hand side should be of same type. 
+*   Go also has *unary operators* `+` and `-`. For integers, `+` is `0 + x` and `-` is `0 - x`. For float, `+` has not effect and `-` is the negation of the number.
+*   Go supports following *binary operations* `&` - `AND`, `|` - `OR`, `^` - `NOT` when unary and `XOR` when used as binary operator, `&^` - `AND NOT` or bit clear, `<<` - left shift and `>>` - right shift.
+*   **Floating Point** Go provides two sizes: `float32` and `float64`. While specifying a floating point number, either side of the floating point can be omitted or can use exponents.
+*   **Complex Numbers** - DEFER.
+*   **Boolean** can hold either `true` or `false`. Doesn't have an implicit coversion with integer.
+*   **String** string is a immutable sequence of bytes. Text strings are utf-8 encoded runes by default.
+*   `len` function returns the number of bytes used not the number of runes used.
+*   *Substring operation*, `s[i:j]`, returns the substring starting at `i` and upto but not including `j`.
