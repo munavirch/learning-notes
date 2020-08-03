@@ -58,4 +58,14 @@
 *   **Boolean** can hold either `true` or `false`. Doesn't have an implicit coversion with integer.
 *   **String** string is a immutable sequence of bytes. Text strings are utf-8 encoded runes by default.
 *   `len` function returns the number of bytes used not the number of runes used.
-*   *Substring operation*, `s[i:j]`, returns the substring starting at `i` and upto but not including `j`.
+*   *Substring operation*, `s[i:j]`, returns the substring starting at `i` and upto but not including `j`. If `i` is omitted, `0` is assumed as the start and if `j` is omitted, `len(s)` is assumed as the end.
+*   *Operators* `+` is concatination. Comparison operators works byte byte, so the result is natural lexicographic ordering.
+*   *String literal* is a sequence of bytes enclosed in double quotes. `\` is used as an *escape literal* which can be used to insert arbitrary bytes in the string. `\` is also used to escape ASCII control codes like new line, tab etc.
+*   A hexadecimal byte is inserted as `\xhh` with exactly two hexadecimal digits. An octal is inserted as `\ooo` with exactly 3 digits not exceeding `\377`.
+*   A raw string literal is enclosed using backquotes. Raw string string literal doesn't process any escape literals. Only processing happening is, carriage returns are deleted since the value of the string remains the same across platforms.
+*   A unicode value can be inserted in two ways, utf-8 encoded 16 bit value or 32 bit value like, `\uhhh` for 16-bit and `\Uhhhhhh` for 32-bits.
+*   Since `len()` returns the number of bytes used, strings containing utf-8 code points won't work well with `len`. `utf.DecodeRuneInString()` can be used to decode each charecter and the number of bytes used to store the charecter, function returns both. `range` loop on a string call the function implicitly.
+*   *Conversion* `[]rune(s)` converts the string into unicode code point that string enodes. `string(r)` converts back to the unicode code point. `string(65)` is `A` not `"65"`.
+*   Essential packages for handling string operations: `bytes`, `strconv`, `strings` and `unicode`.
+*   **Constants** are whose value is know to the compiler and whose evaluation is guarenteed to happen during compilation. Constants can't be redeclared.
+*   Declares like, `const pi = 3.14`. Underlying type of constants are basic types.
