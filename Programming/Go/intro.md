@@ -69,3 +69,20 @@
 *   Essential packages for handling string operations: `bytes`, `strconv`, `strings` and `unicode`.
 *   **Constants** are whose value is know to the compiler and whose evaluation is guarenteed to happen during compilation. Constants can't be redeclared.
 *   Declares like, `const pi = 3.14`. Underlying type of constants are basic types.
+*   If a constant is not assigned a value, it takes the value of previous assignment, if it's in the same decleration block.
+*   *Constant generator* `iota` can be used in constant declarations. `iota` generates numbers from zero, one, two, and so on for the consecutive constants.
+*   Go constants can be untyped which allows to store larger and more pricise value than a normal variable.
+
+## Composite Types
+
+*   Composite types are collections of basic types. There are 4 composite types: arrays, slices, structs and maps. Arrays and slices are collection of the same type where as structs and maps holds different types. Arrays and structs are fixed size and slices and maps are variable.
+*   **Arrays** fixed-length sequence of zero or more values of the same type. Length of an array is `len(ar)`.
+*   Arrays can be initialized using *array literal*. `var b [3]int = [3]int{1,2,3}`. Uninitialized indices will be set to zero value of the type.
+*   `...`, ellipsis, when used specifies the length of the array as the number of items in the array literal. `q := [...]{1,2,3}`, `q` will be of length 3.
+*   Arrays with different sizes are different types. `[3]int` is not the same type as `[4]int`.
+*   Array literal can specify indices when initializing an array, allowing the declaration in any order. e.g. `q := [...]int{99: -1}`, `q` is an array of size 100 with last element set to `-1`.
+*   **Slice** `[]T` variable length-sequence whose items are of type `T`.
+*   Slice has 3 components, a pointer, length and capacity. Pointer referes to the start of the slice, length the length of the slice and capacity is capacity of underlying array from the start of the slice.
+*   `var t = []int{0,1,2,3,4}`, `k := t[1:3]` yields a pointer to the second element of `t`, length `1` and capacity `4`. A slice can be extended like `k[:3]`, eventhough the length of `k` is `1`, it should not exceed it's capacity.
+*   Comparison `==` doesn't work with slices like with the arrays. But the comparison with `nil` is legal but use `len(s)` instead. 
+*   Built in function `make` can create and return a slice. `k := make([]T, len)` creates an array under the hood and and returns a slice with length and capacity `len`. Capacity can be explicitly specified as the third argument.
