@@ -86,3 +86,30 @@
 *   `var t = []int{0,1,2,3,4}`, `k := t[1:3]` yields a pointer to the second element of `t`, length `1` and capacity `4`. A slice can be extended like `k[:3]`, eventhough the length of `k` is `1`, it should not exceed it's capacity.
 *   Comparison `==` doesn't work with slices like with the arrays. But the comparison with `nil` is legal but use `len(s)` instead. 
 *   Built in function `make` can create and return a slice. `k := make([]T, len)` creates an array under the hood and and returns a slice with length and capacity `len`. Capacity can be explicitly specified as the third argument.
+*   `append` function appends an item to the end of a slice. Under the hood, append checks for unused capacity, if there's no room for new item, new slice is created and values are copied.
+*   `...`, ellipsis, spreads an array / slice.
+*   `copy` function copies elements to the start or specified index of a slice. If number of elements are less in source than the destination, destination elements are preserved. If exceeds, source elements are dropped. e.g. `copy(s[i:], s[i+1])`, copies items starting from `i+1` to `i`, effectively dropping i<sup>th</sup> element and duplicating the last element.
+*   **Maps** are hash table implementation in Go. A map is written as `map[K]V` where `K` is the type of key, should be of same type for all keys and should be comparable. `V` is the type of value and should be the same across the same map.
+*   A map can made using `make(map[string]int)`. Alternatively, `map[string]int{}` also initializes an empty map.
+*   Map elements are accessed through subscription notation, `s["item"]`. Removal can be done using builit-in `delete` function, `delete(s, "item")`.
+*   Map elements can use short hand assignment operations and increment operations. However, the address of a map element can't retrieved.
+*   While enumarating through map, the order of key-value pairs are intentionally left to be random. If order has to be preserved, one has to retrive all the keys, sort it and enumarate the sorted array and then access the map items.
+*   A `nil` map reference can not be subscribed. However, `delete`, `len` and `range` loops are safe.
+*   If a non-existent key is accessed, zero value of the value type will be returned. Subscription operation returns two variable, `value` and `ok`. `ok` is `true` when key is present and `false` if not.
+*   **Struct** is an aggregate type that groups togather zero or more named arbitrary types as a single entity. Each value is called a *field*. e.g. as follows
+    type Employee struct {
+        ID      int
+        Name    string
+        Address string
+        Salary  int
+    }
+    var dilbert Employee
+*   Fields can be access using dotted notation, `dilbert.Salary`. ALternatvely, fields can be accessed via pointers too. `position := &dilbert.Position`, any changes made to `position` will reflect to `dilbert.Position`
+*   Dot notation can be used with pointer to the struct. `empOfMonth := &dilbert`, now position can be changed via `empOfMonth.Position` as well as `(*empOfMonth).Position`.
+*   In field definition, same typed fields can be combined in a single line. Usually logically related fields are combined. Structs as sensitive to the order and combination field declaration.
+*   Name of exported struct field begins with capital letter.
+*   A named struct `S` can not have `S` as it's field member. However, pointer to `S` can be a declared in the field list.
+*   *Struct literals* the value of struct fields can be specified using struct literals, like `dilbert := Employee{1, "Munavir"}`, where order is required to be maintained and alternatively, `dilbert := Employee{Id: 1, Name: "Dilbert"}` which is order insensitive.
+*   *Comparison* a struct is coparable if all the fields are comparable.
+*   Go's *struct embedding* allows the use of *anonymous fields*. If a struct `A` makes use of the fields of another struct `B`, `B` can be included in `A`'s field declaration without a type. Which allows access to `B`'s fields, say `x` and `y`, via both `A.x` and `A.B.x`. Go implicitly names the type and name as `B`.
+*   `A` can not be initialized ike, `A{1,2}` or `A{x:1, y:2}`, instead `A{B{1,2}}` or `A{B: B{1,2}}` should be used.
